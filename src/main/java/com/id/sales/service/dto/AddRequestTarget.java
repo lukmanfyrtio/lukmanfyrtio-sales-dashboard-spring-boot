@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddRequestTarget {
-	
+
 	private String bup;
 	private String tahun;
 	private List<MonthClass> existing;
