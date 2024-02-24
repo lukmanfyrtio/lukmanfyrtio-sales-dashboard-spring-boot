@@ -1,0 +1,8 @@
+version: 0.1
+endpoints:
+- name: Sales Performance Dashboard
+  port: 8888
+  type: REST
+  networkVisibility: Public
+  context: /
+  schemaFilePath: openapi.yaml

@@ -1,0 +1,789 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8888
+  description: Generated server url
+paths:
+  /sales-target/edit:
+    post:
+      tags:
+      - sales-info-controller
+      operationId: editData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRequestTarget'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /sales-target/add:
+    post:
+      tags:
+      - sales-info-controller
+      operationId: addData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRequestTarget'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /invoice/edit/{id}:
+    post:
+      tags:
+      - invoice-controller
+      operationId: editData_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceAging'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /invoice/add:
+    post:
+      tags:
+      - invoice-controller
+      operationId: addData_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceAging'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/upload/excel2:
+    post:
+      tags:
+      - dashboard-controller
+      operationId: uploadExcel2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/edit/{id}:
+    post:
+      tags:
+      - dashboard-controller
+      operationId: editData_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInfo'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/add:
+    post:
+      tags:
+      - dashboard-controller
+      operationId: addData_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInfo'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /sales-target/list:
+    get:
+      tags:
+      - sales-info-controller
+      operationId: getList
+      parameters:
+      - name: bulan
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: tahun
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /sales-target/detail/{tahun}:
+    get:
+      tags:
+      - sales-info-controller
+      operationId: detailData
+      parameters:
+      - name: tahun
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /invoice/list:
+    get:
+      tags:
+      - invoice-controller
+      operationId: getList_1
+      parameters:
+      - name: tenant
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: denda
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /invoice/download:
+    get:
+      tags:
+      - invoice-controller
+      operationId: getFile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+  /dashboard/target-breakdown:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getTargetAndBreakDown
+      parameters:
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/target-breakdown-all:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getTargetAndBreakDownAll
+      parameters:
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/target-actual:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getTargetActual
+      parameters:
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/list:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getList_2
+      parameters:
+      - name: stage
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/list-sales:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: listSales
+      parameters:
+      - name: bup
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/existing-gap:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getExistingGAP
+      parameters:
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/download:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getFile_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+  /dashboard/detail:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: funnelData
+      parameters:
+      - name: bup
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/avg-sales:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: avgSalesCycle
+      parameters:
+      - name: bup
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /sales-target/deleteall:
+    delete:
+      tags:
+      - sales-info-controller
+      operationId: deleteDataall
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /sales-target/delete/{tahun}:
+    delete:
+      tags:
+      - sales-info-controller
+      operationId: deleteData
+      parameters:
+      - name: tahun
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bup
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /invoice/detail/{id}:
+    delete:
+      tags:
+      - invoice-controller
+      operationId: detailData_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /invoice/deleteall:
+    delete:
+      tags:
+      - invoice-controller
+      operationId: deleteDataall_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /invoice/delete/{id}:
+    delete:
+      tags:
+      - invoice-controller
+      operationId: deleteData_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/detail/{id}:
+    delete:
+      tags:
+      - dashboard-controller
+      operationId: detailData_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/deleteall:
+    delete:
+      tags:
+      - dashboard-controller
+      operationId: deleteDataall_2
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+  /dashboard/delete/{id}:
+    delete:
+      tags:
+      - dashboard-controller
+      operationId: deleteData_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+components:
+  schemas:
+    AddRequestTarget:
+      type: object
+      properties:
+        bup:
+          type: string
+        tahun:
+          type: string
+        existing:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonthClass'
+        target:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonthClass'
+    MonthClass:
+      type: object
+      properties:
+        bulan:
+          type: string
+        value:
+          type: number
+          format: double
+    ResponseModel:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        success:
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        data:
+          type: object
+    InvoiceAging:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        bup:
+          type: string
+        tenant:
+          type: string
+        nomerInvoice:
+          type: string
+        tglInvoice:
+          type: string
+        tglInvoiceDiterimaTenant:
+          type: string
+        tglJatuhTempo:
+          type: string
+        pokokPenerimaan:
+          type: string
+        tglMasukRekeningPokok:
+          type: string
+        keterangan:
+          type: string
+        jatuhTempo:
+          type: string
+        agingInvoiceSejakDiterima:
+          type: string
+        denda:
+          type: string
+        keteranganAgingInvoice:
+          type: string
+        agingPembayaran:
+          type: string
+    CustomerInfo:
+      type: object
+      properties:
+        createdTime:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        updatedTime:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        idPelanggan:
+          type: integer
+          format: int64
+        bulan:
+          type: string
+        bup:
+          type: string
+        salesName:
+          type: string
+        calonPelanggan:
+          type: string
+        alamat:
+          type: string
+        kelurahan:
+          type: string
+        kecamatan:
+          type: string
+        kabupaten:
+          type: string
+        provinsi:
+          type: string
+        kodePos:
+          type: string
+        nomerTelepon:
+          type: string
+        email:
+          type: string
+        project:
+          type: string
+        produk:
+          type: string
+        proyeksiNilai:
+          type: string
+        leadsCategory:
+          type: string
+        opportunitiesOpen:
+          type: string
+        opportunitiesClose:
+          type: string
+        proposalOpen:
+          type: string
+        proposalClose:
+          type: string
+        negotiationOpen:
+          type: string
+        negotiationClose:
+          type: string
+        dealsOpen:
+          type: string
+        dealsClose:
+          type: string
+        droppedOpen:
+          type: string
+        droppedClose:
+          type: string
+        currentStage:
+          type: string
+        leadsStatus:
+          type: string
+        keterangan:
+          type: string
+        countDays:
+          type: integer
+          format: int64
