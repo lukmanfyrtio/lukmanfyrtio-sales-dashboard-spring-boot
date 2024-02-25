@@ -205,6 +205,11 @@ public class DashboardService {
 				}
 				customerInfo.setCreatedBy(username);
 			}
+			CustomerInfo existingData=customerInfoRepository.getByUId(customerInfo.getCalonPelanggan(), customerInfo.getProject(), customerInfo.getBup(), customerInfo.getProduk());
+			if(existingData!=null) {
+				excelResponse.setValid(false);
+				validationMessage += ", Data already exist";
+			}
 			if (excelResponse.isValid()) {
 				customerInfo.setCreatedTime(new Date());
 				addCustomer(customerInfo, username);
@@ -933,6 +938,9 @@ public class DashboardService {
 				salesResInfo.size());
 		model.setData(pages);
 		return model;
+	}
+	public List<String>getCustomer(){
+		return customerInfoRepository.getCustomerInfo();
 	}
 
 	public ResponseModel getDetailDashboard(String bup, String tahun) {

@@ -23,15 +23,13 @@ import com.id.sales.service.model.InvoiceAging;
 
 public class ExcelHelper {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-	static String[] HEADER_INV = { "BUP", "Tenant", "Nomer Invoice", "Tgl Invoice", "Tgl Invoice Diterima Tenant",
-			"Tgl Jatuh Tempo", "Pokok Penerimaan", "Tgl Masuk Rekening Pokok", "Keterangan", "Jatuh Tempo",
-			"Aging Invoice Sejak Diterima", "Denda", "Keterangan Aging Invoice", "Aging Pembayaran" };
+	static String[] HEADER_INV = { "Company", "Customer", "Invoice Number", "Invoice Date", "Customers Invoice Received Date",
+			"Due Date", "Principal Receipt", "Principal Receipt Entry Date", "Notes", "Due Date",
+			"Invoice Aging Since Received", "Fine", "Invoice Aging Notes", "Payment Aging" };
 
-	static String[] HEADER_CUSTOMER = { "Bulan", "BUP", "Nama Sales", "Calon Pelanggan", "Alamat", "Kelurahan",
-			"Kecamatan", "Kota/Kabupaten", "Provinsi", "Kode Pos", "No Telepon", "E-mail", "Project", "Produk",
-			"Proyeksi Nilai", "Aging", "Current Stage", "Leads Status", "Keterangan",
-
-	};
+	static String[] HEADER_CUSTOMER = { "Month", "Company", "Sales Name", "Prospective Customer", "Address", "Village",
+			"District", "City/Regency", "Province", "Postal Code", "Phone Number", "E-mail", "Project", "Product",
+			"Projected Value", "Aging", "Current Stage", "Leads Status", "Notes", };
 	static String SHEET_CUSTOMER = "CUSTOMER";
 
 //	private static Date formatDate(String date) {

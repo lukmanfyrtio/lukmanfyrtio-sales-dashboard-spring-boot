@@ -77,7 +77,7 @@ public class InvoiceController {
 
 	@GetMapping("/download")
 	public ResponseEntity<Resource> getFile() {
-		String filename = "InvoiceAging_"+new SimpleDateFormat("YYYYmmddhhmmss").format(new Date()+".xlsx");;
+		String filename = "InvoiceAging_"+new SimpleDateFormat("YYYYmmddhhmmss").format(new Date())+".xlsx";
 		InputStreamResource file = new InputStreamResource(invoiceAgingService.load());
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
 				.contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);

@@ -137,10 +137,17 @@ public class DashboardController {
 
 	@GetMapping("/download")
 	public ResponseEntity<Resource> getFile() {
-		String filename = "Customer_"+new SimpleDateFormat("YYYYmmddhhmmss").format(new Date()+".xlsx");;
+		String filename = "Customer_"+new SimpleDateFormat("YYYYmmddhhmmss").format(new Date())+".xlsx";
 		InputStreamResource file = new InputStreamResource(invoiceAgingService.loadCustomer());
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
 				.contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
+	}
+	
+	@GetMapping("/customers")
+	public ResponseModel getCustomers() {
+		ResponseModel model = new ResponseModel();
+		model.setData(dashService.getCustomer());
+		return model;
 	}
 
 }
