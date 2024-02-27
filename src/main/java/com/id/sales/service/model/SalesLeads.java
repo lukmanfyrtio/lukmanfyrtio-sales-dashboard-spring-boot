@@ -56,11 +56,11 @@ public class SalesLeads extends BaseModel {
 	@NotBlank(message = "Email is required")
 	private String email;
 
+	@NotNull(message = "Product is required")
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	@NotNull(message = "Product is required")
-
 	private Product product;
+
 	@NotBlank(message = "Projected value is required")
 	private String projectedValue;
 
@@ -85,8 +85,6 @@ public class SalesLeads extends BaseModel {
 	private String leadsStatus;
 	private String notes;
 
-	@OneToMany(mappedBy = "salesLeads")
-	private List<SalesRevenue> salesRevenues;
 
 	public long getCountDays() {
 		SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -112,6 +110,7 @@ public class SalesLeads extends BaseModel {
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
+			return 0;
 		}
 		return 0;
 	}

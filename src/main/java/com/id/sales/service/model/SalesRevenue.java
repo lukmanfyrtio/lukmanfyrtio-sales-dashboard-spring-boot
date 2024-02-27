@@ -3,6 +3,8 @@ package com.id.sales.service.model;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class SalesRevenue extends BaseModel {
     private String invoiceReceivedDateByTenant;
     private String dueDate;
     private String  principalReceipt;
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date principalReceiptEntryDate;
     @Column(length = 1000, name = "description")
     private String description;

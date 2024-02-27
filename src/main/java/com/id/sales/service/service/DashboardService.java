@@ -142,7 +142,7 @@ public class DashboardService {
 				salesData.setExisting(BigDecimal.ZERO);
 				salesData.setTarget(BigDecimal.ZERO);
 			} else {
-				salesData = salesInfo.stream().filter(salesInfoData -> salesInfoData.getYear().equalsIgnoreCase(month))
+				salesData = salesInfo.stream().filter(salesInfoData -> salesInfoData.getMonth().equalsIgnoreCase(month))
 						.findFirst().orElse(null);
 			}
 			
@@ -166,7 +166,7 @@ public class DashboardService {
 					System.out.println("lastP=" + lastProspek);
 				}
 				prospekS.add(df.format(lastProspek));
-				prospekS.add(df.format(Double.valueOf(targetPerMonth - existingPermonth - lastProspek)));
+				gap.add(df.format(Double.valueOf(targetPerMonth - existingPermonth - lastProspek)));
 			}else {
 				existing.add("0");
 				prospekS.add("0");
@@ -202,7 +202,7 @@ public class DashboardService {
 		months.forEach(month -> {
 			try {
 				CompanyTarget dataS = StreamSupport.stream(salesInfo.spliterator(), false)
-						.filter(sales -> sales.getYear().equalsIgnoreCase(month)).findFirst().get();
+						.filter(sales -> sales.getMonth().equalsIgnoreCase(month)).findFirst().get();
 				targetList.add(dataS.getTarget().toString());
 				System.out.println(dataS.getTarget());
 			} catch (Exception e) {

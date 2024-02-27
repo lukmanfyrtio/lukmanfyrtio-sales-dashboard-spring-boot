@@ -19,6 +19,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class Product extends BaseModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;

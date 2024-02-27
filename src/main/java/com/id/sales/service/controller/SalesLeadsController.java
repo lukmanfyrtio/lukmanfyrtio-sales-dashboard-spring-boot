@@ -36,7 +36,11 @@ public class SalesLeadsController {
 
 	@GetMapping
 	public List<SalesLeads> getAllSalesLeads() {
-		return salesLeadsService.getAllSalesLeads();
+		try {
+			return salesLeadsService.getAllSalesLeads();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	@GetMapping("/{id}")

@@ -20,7 +20,13 @@ public class SalesLeadsService {
 	private SalesLeadsRepository salesLeadsRepository;
 
 	public List<SalesLeads> getAllSalesLeads() {
-		return salesLeadsRepository.findAll();
+		try {
+			return salesLeadsRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 	}
 
 	public Optional<SalesLeads> getSalesLeadsById(UUID salesLeadsId) {

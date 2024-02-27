@@ -25,7 +25,6 @@ public interface SalesLeadsRepository extends JpaRepository<SalesLeads, UUID> {
             @Param("search") String search,
             Pageable pageable
     );
-
     @Query(value = "SELECT a FROM SalesLeads a " +
             "WHERE a.product.department.id = :departmentId " +
             "AND YEAR(a.opportunitiesOpen) = :year")
