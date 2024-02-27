@@ -30,7 +30,7 @@ public class SalesRevenue extends BaseModel {
 
     private String invoiceNumber;
     private String invoiceDate;
-    private String invoiceReceivedDateByTenant;
+    
     private String dueDate;
     private String  principalReceipt;
     @JsonFormat(pattern = "yyyy/MM/dd")

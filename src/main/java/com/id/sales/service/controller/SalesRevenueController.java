@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.id.sales.service.model.SalesRevenue;
@@ -60,4 +64,14 @@ public class SalesRevenueController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@GetMapping("/filter")
+	public ResponseEntity<Page<SalesRevenue>> filterSalesLeads(
+			@RequestParam(required = false, name = "departmentId") UUID departmentId,
+			@RequestParam(required = false, name = "search") String search,
+			@RequestParam(required = true, name = "page") Integer page,
+			@RequestParam(required = true, name = "size") Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<SalesRevenue> filteredSalesLeads = salesRevenueService.filterSalesRevenues(departmentId, search, pageable);
+		return ResponseEntity.ok(filteredSalesLeads);
+	}
 }
