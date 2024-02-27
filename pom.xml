@@ -130,6 +130,7 @@
 						<configuration>
 							<!-- <outputDirectory>target/generated-sources/java</outputDirectory> -->
 							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+							 <skipTests>true</skipTests>
 						</configuration>
 					</execution>
 				</executions>

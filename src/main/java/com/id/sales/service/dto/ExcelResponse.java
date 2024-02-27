@@ -1,6 +1,6 @@
 package com.id.sales.service.dto;
 
-import com.id.sales.service.model.CustomerInfo;
+import com.id.sales.service.model.SalesLeads;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,8 @@ public class ExcelResponse {
 	public ExcelResponse() {
 		// TODO Auto-generated constructor stub
 	}
+
 	private boolean isValid;
 	private String validationMessage;
-	private CustomerInfo customerInfo;
+	private SalesLeads customerInfo;
 }
