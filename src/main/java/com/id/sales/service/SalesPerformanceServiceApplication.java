@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -95,7 +96,7 @@ public class SalesPerformanceServiceApplication {
 					companyTarget.setExisting(new BigDecimal(1));
 					companyTarget.setTarget(new BigDecimal(random.nextInt(6)));
 					companyTarget.setMonth(string);
-					companyTarget.setYear("2024");
+					companyTarget.setYear(new SimpleDateFormat("yyyy").format(new Date()));
 					companyTargetRepository.save(companyTarget);
 				}
 			}
@@ -154,8 +155,24 @@ public class SalesPerformanceServiceApplication {
             salesLeads2.setLeadsStatus("Open");
             salesLeads2.setNotes("Sample notes");
             
+            SalesLeads salesLeads3 = new SalesLeads();
+            salesLeads3.setMonth("February");
+            salesLeads3.setSalesName("Arya Stark");
+            salesLeads3.setPotentialCustomer("ZVG Corp");
+            salesLeads3.setAddress("321 Main St");
+            salesLeads3.setPostalCode("28913781");
+            salesLeads3.setPhoneNumber("222-1234");
+            salesLeads3.setEmail("arya.stark@example.com");
+            salesLeads3.setProduct(product3);
+            salesLeads3.setProjectedValue("4000000000");
+            salesLeads3.setLeadsCategory("Medium");
+            salesLeads3.setCurrentStage("Opportunities");
+            salesLeads3.setLeadsStatus("Open");
+            salesLeads3.setNotes("Sample notes");
+            
             salesLeads2=salesLeadsService.createSalesLeads(salesLeads2);
             salesLeads=salesLeadsService.createSalesLeads(salesLeads);
+            salesLeads3=salesLeadsService.createSalesLeads(salesLeads3);
             
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             SalesRevenue salesRevenue1 = new SalesRevenue();
@@ -164,7 +181,7 @@ public class SalesPerformanceServiceApplication {
             salesRevenue1.setPrincipalReceipt("2000000000");
             // Set other properties...
             salesRevenue1.setDepartment(department2);
-            salesRevenue1.setSalesLeads(salesLeads);
+            salesRevenue1.setSalesLeads(salesLeads2);
             salesRevenue1.setPrincipalReceiptEntryDate(dateFormat.parse("2024/01/20"));
             salesRevenueRepository.save(salesRevenue1);
 
@@ -185,6 +202,15 @@ public class SalesPerformanceServiceApplication {
             salesRevenue3.setPrincipalReceipt("4000000000");
             salesRevenue3.setPrincipalReceiptEntryDate(dateFormat.parse("2024/02/29"));
             salesRevenueRepository.save(salesRevenue3);
+            
+            SalesRevenue salesRevenue4 = new SalesRevenue();
+            salesRevenue4.setInvoiceNumber("INV-004");
+            salesRevenue4.setInvoiceDate("2024/03/25");
+            salesRevenue4.setDepartment(department3);
+            salesRevenue4.setSalesLeads(salesLeads3);
+            salesRevenue4.setPrincipalReceipt("950000000");
+            salesRevenue4.setPrincipalReceiptEntryDate(dateFormat.parse("2024/02/29"));
+            salesRevenueRepository.save(salesRevenue4);
             
 		};
 		

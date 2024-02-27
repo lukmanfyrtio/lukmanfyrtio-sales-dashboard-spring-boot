@@ -12,4 +12,6 @@ public interface DepartmentRepository extends JpaRepository<Department, UUID> {
 
     // Custom query to get a list of departments with isDisplay set to true
     List<Department> findTop3ByIsDisplayTrue();
+    
+    List<Department>findAllByOrderByNameDesc();
 }
