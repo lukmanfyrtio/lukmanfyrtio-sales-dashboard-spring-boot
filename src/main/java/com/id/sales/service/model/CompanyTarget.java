@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,11 @@ import lombok.Setter;
 @Entity
 public class CompanyTarget extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
@@ -33,7 +37,6 @@ public class CompanyTarget extends BaseModel {
 
 	@ManyToOne
 	@JoinColumn(name = "department_id")
-	@NotNull(message = "Department ID is required")
 	private Department department;
 
 }

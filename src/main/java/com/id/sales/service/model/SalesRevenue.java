@@ -24,33 +24,27 @@ import lombok.Setter;
 @Entity
 public class SalesRevenue extends BaseModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID id;
 
-    private String invoiceNumber;
-    private String invoiceDate;
-    
-    private String dueDate;
-    private String  principalReceipt;
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    private Date principalReceiptEntryDate;
-    @Column(length = 1000, name = "description")
-    private String description;
+	private String invoiceNumber;
+	private String invoiceDate;
 
-    private String dueDateStatus;
-    private String agingSinceReceived;
-    private String penalty;
-    private String agingInvoiceDescription;
-    private String paymentAging;
-    
+	@JsonFormat(pattern = "yyyy/MM/dd")
+	private Date dueDate;
+	private String principalReceipt;
+	@JsonFormat(pattern = "yyyy/MM/dd")
+	private Date principalReceiptEntryDate;
+	@Column(length = 1000, name = "notes")
+	private String notes;
 
 	@ManyToOne
 	@JoinColumn(name = "department_id")
 	private Department department;
-	
-    @ManyToOne
-    @JoinColumn(name = "sales_leads_id")
-    private SalesLeads salesLeads;
+
+	@ManyToOne
+	@JoinColumn(name = "sales_leads_id")
+	private SalesLeads salesLeads;
 
 }

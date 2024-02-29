@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +26,10 @@ public class UserMapping extends BaseModel {
 	private UUID id;
 
 	@ManyToOne
-	@JoinColumn(name = "company_id")
-	private Company company;
-
+	@JoinColumn(name = "department_id")
+	@NotNull(message = "Department ID is required")
+	private Department department;
+	
 	// Reference to user through user_id
 	@Column(name = "user_id")
 	private String userId;

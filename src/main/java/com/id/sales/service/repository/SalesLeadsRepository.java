@@ -2,6 +2,7 @@ package com.id.sales.service.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -66,5 +67,10 @@ public interface SalesLeadsRepository extends JpaRepository<SalesLeads, UUID> {
 			+ "ORDER BY a.createdAt DESC LIMIT 1")
 	Date getLastCreated(@Param("departmentId") UUID departmentId
 			,@Param(value = "year") Integer year);
+	
+	
+    Optional<SalesLeads> findByMonthAndSalesNameAndPotentialCustomerAndEmailAndPhoneNumberAndProduct_Name(
+            String month, String salesName, String potentialCustomer, String email, String phoneNumber, String productName);
+
 }
 

@@ -1,5 +1,7 @@
 package com.id.sales.service.dto;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DetailResponse {
 	
-	private String tahun;
-	private String bup;
+	private String year;
+	private UUID departmentId;
 	private MonthName existing;
 	private MonthName target;
 

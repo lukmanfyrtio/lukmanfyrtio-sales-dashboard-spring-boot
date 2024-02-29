@@ -13,30 +13,34 @@ import com.id.sales.service.repository.ProductRepository;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+	public List<Product> getAllProducts() {
+		return productRepository.findAll();
+	}
 
-    public Optional<Product> getProductById(UUID productId) {
-        return productRepository.findById(productId);
-    }
+	public Optional<Product> getProductById(UUID productId) {
+		return productRepository.findById(productId);
+	}
 
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
-    }
+	public Product createProduct(Product product) {
+		return productRepository.save(product);
+	}
 
-    public Product updateProduct(UUID productId, Product updatedProduct) {
-        if (productRepository.existsById(productId)) {
-            updatedProduct.setId(productId);
-            return productRepository.save(updatedProduct);
-        }
-        return null; // Handle not found case
-    }
+	public Product updateProduct(UUID productId, Product updatedProduct) {
+		if (productRepository.existsById(productId)) {
+			updatedProduct.setId(productId);
+			return productRepository.save(updatedProduct);
+		}
+		return null; // Handle not found case
+	}
 
-    public void deleteProduct(UUID productId) {
-        productRepository.deleteById(productId);
-    }
+	public void deleteProduct(UUID productId) {
+		productRepository.deleteById(productId);
+	}
+
+	public List<Product> getProductByDepartmentId(UUID departmentUUID) {
+		return productRepository.findByDepartment_Id(departmentUUID);
+	}
 }

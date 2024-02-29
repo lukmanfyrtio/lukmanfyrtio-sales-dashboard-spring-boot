@@ -1,13 +1,18 @@
 package com.id.sales.service.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.id.sales.service.dto.ResponseModel;
 import com.id.sales.service.model.SalesLeads;
 import com.id.sales.service.service.SalesLeadsService;
 
@@ -85,5 +92,34 @@ public class SalesLeadsController {
 		Page<SalesLeads> filteredSalesLeads = salesLeadsService.filterSalesLeads(currentStage, leadStatus, departmentId,
 				search, pageable);
 		return ResponseEntity.ok(filteredSalesLeads);
+	}
+	
+    @GetMapping("/export")
+    public ResponseEntity<InputStreamResource> exportSalesLeadsToExcel() throws IOException {
+        List<SalesLeads> salesLeadsList = salesLeadsService.getAllSalesLeads();
+        ByteArrayInputStream in = salesLeadsService.exportSalesLeadsToExcel(salesLeadsList);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=sales_leads.xlsx");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(in));
+    }
+    
+    @PostMapping("/import")
+	private ResponseModel uploadExcel2(@RequestParam(required = true, name = "file") MultipartFile file) {
+		try {
+			return salesLeadsService.importSalesLeads(file);
+		} catch (IOException e) {
+			ResponseModel model=new ResponseModel();
+			model.setData(null);
+			model.setMessage(e.getMessage());
+			model.setSuccess("false");
+			model.setStatusCode(400);
+			return model;
+		}
 	}
 }

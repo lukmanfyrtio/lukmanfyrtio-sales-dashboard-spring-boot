@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MonthClass {
 
-	private String bulan;
+	private String month;
 	private Double value;
 }

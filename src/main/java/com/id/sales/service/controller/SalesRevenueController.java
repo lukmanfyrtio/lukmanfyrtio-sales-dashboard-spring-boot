@@ -1,14 +1,19 @@
 package com.id.sales.service.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,4 +79,19 @@ public class SalesRevenueController {
 		Page<SalesRevenue> filteredSalesLeads = salesRevenueService.filterSalesRevenues(departmentId, search, pageable);
 		return ResponseEntity.ok(filteredSalesLeads);
 	}
+	
+    @GetMapping("/export")
+    public ResponseEntity<InputStreamResource> exportSalesLeadsToExcel() throws IOException {
+        List<SalesRevenue> salesLeadsList = salesRevenueService.getAllSalesRevenues();
+        ByteArrayInputStream in = salesRevenueService.exportSalesRevenueToExcel(salesLeadsList);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=sales_revenues.xlsx");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(in));
+    }
 }

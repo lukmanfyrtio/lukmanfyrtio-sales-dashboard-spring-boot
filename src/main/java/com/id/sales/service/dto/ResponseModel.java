@@ -21,5 +21,8 @@ public class ResponseModel {
 		this.success = "true";
 		this.timestamp = String.valueOf(new Date().getTime());
 	}
+	
+	
+	
 
 }

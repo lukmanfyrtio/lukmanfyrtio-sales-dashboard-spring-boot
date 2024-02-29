@@ -15,5 +15,5 @@ public class ExcelResponse {
 
 	private boolean isValid;
 	private String validationMessage;
-	private SalesLeads customerInfo;
+	private SalesLeads salesLeads;
 }

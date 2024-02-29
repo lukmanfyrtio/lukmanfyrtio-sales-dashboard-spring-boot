@@ -25,36 +25,40 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @SecurityRequirement(name = "bearerAuth")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+	@Autowired
+	private ProductService productService;
 
-    @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
-    }
+	@GetMapping
+	public List<Product> getAllProducts() {
+		return productService.getAllProducts();
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable UUID id) {
-        Optional<Product> product = productService.getProductById(id);
-        return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<Product> getProductById(@PathVariable UUID id) {
+		Optional<Product> product = productService.getProductById(id);
+		return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	}
 
-    @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
-        return ResponseEntity.ok(createdProduct);
-    }
+	@GetMapping("/department/{id}")
+	public List<Product> getProductByDepartment(@PathVariable UUID id) {
+		return productService.getProductByDepartmentId(id);
+	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable UUID id, @RequestBody Product updatedProduct) {
-        Product product = productService.updateProduct(id, updatedProduct);
-        return (product != null) ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
-    }
+	@PostMapping
+	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+		Product createdProduct = productService.createProduct(product);
+		return ResponseEntity.ok(createdProduct);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
-        productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<Product> updateProduct(@PathVariable UUID id, @RequestBody Product updatedProduct) {
+		Product product = productService.updateProduct(id, updatedProduct);
+		return (product != null) ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
+		productService.deleteProduct(id);
+		return ResponseEntity.noContent().build();
+	}
 }
-

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.id.sales.service.dto.AddRequestTarget;
 import com.id.sales.service.dto.ResponseModel;
 import com.id.sales.service.model.CompanyTarget;
 import com.id.sales.service.service.CompanyTargetService;
@@ -44,32 +45,37 @@ public class CompanyTargetController {
 		return companyTarget.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
+//	@PostMapping
+//	public ResponseEntity<CompanyTarget> createCompanyTarget(@RequestBody CompanyTarget companyTarget) {
+//		CompanyTarget createdCompanyTarget = companyTargetService.createCompanyTarget(companyTarget);
+//		return ResponseEntity.ok(createdCompanyTarget);
+//	}
+
 	@PostMapping
-	public ResponseEntity<CompanyTarget> createCompanyTarget(@RequestBody CompanyTarget companyTarget) {
-		CompanyTarget createdCompanyTarget = companyTargetService.createCompanyTarget(companyTarget);
-		return ResponseEntity.ok(createdCompanyTarget);
+	public ResponseModel createCompanyTarget(@RequestBody AddRequestTarget companyTarget) {
+		return companyTargetService.addUnitTarget(companyTarget);
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<CompanyTarget> updateCompanyTarget(@PathVariable UUID id,
-			@RequestBody CompanyTarget updatedCompanyTarget) {
-		CompanyTarget companyTarget = companyTargetService.updateCompanyTarget(id, updatedCompanyTarget);
-		return (companyTarget != null) ? ResponseEntity.ok(companyTarget) : ResponseEntity.notFound().build();
-	}
+//	@PutMapping("/{id}")
+//	public ResponseEntity<CompanyTarget> updateCompanyTarget(@PathVariable UUID id,
+//			@RequestBody CompanyTarget updatedCompanyTarget) {
+//		CompanyTarget companyTarget = companyTargetService.updateCompanyTarget(id, updatedCompanyTarget);
+//		return (companyTarget != null) ? ResponseEntity.ok(companyTarget) : ResponseEntity.notFound().build();
+//	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteCompanyTarget(@PathVariable UUID id) {
 		companyTargetService.deleteCompanyTarget(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@DeleteMapping("/{departmentId}/{year}")
 	private ResponseModel deleteData(@PathVariable("year") Integer year,
 			@PathVariable(required = true, name = "departmentId") UUID departmentId) {
 		return companyTargetService.deleteTarget(year, departmentId);
 
 	}
-	
+
 	@GetMapping("/filter")
 	public ResponseEntity<Page<CompanyTarget>> filterSalesLeads(
 			@RequestParam(required = false, name = "departmentId") UUID departmentId,
@@ -80,5 +86,17 @@ public class CompanyTargetController {
 		Page<CompanyTarget> filteredSalesLeads = companyTargetService.filterCompanyTarget(departmentId, search,
 				pageable);
 		return ResponseEntity.ok(filteredSalesLeads);
+	}
+	
+	
+	@GetMapping("/detail/{tahun}")
+	private ResponseModel detailData(@PathVariable("tahun") String tahun,@RequestParam(required = false, name = "departmentId") UUID departmentId) {
+		return companyTargetService.detailCompanyTarget(Integer.valueOf(tahun),departmentId);
+		
+	}
+	
+	@PutMapping
+	private ResponseModel editData(@RequestBody AddRequestTarget body) {
+		return companyTargetService.editCompanyTarget(body);
 	}
 }
