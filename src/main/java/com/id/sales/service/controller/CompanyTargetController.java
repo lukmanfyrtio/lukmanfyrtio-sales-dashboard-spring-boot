@@ -64,7 +64,7 @@ public class CompanyTargetController {
 //	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteCompanyTarget(@PathVariable UUID id) {
+	public ResponseEntity<Void> deleteCompanyTarget(@PathVariable UUID id){
 		companyTargetService.deleteCompanyTarget(id);
 		return ResponseEntity.noContent().build();
 	}

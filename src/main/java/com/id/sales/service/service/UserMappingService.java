@@ -23,6 +23,10 @@ public class UserMappingService {
     public Optional<UserMapping> getUserMappingById(UUID userMappingId) {
         return userMappingRepository.findById(userMappingId);
     }
+    
+    public Optional<UserMapping> getUserMappingByUsersId(String userMappingId) {
+        return userMappingRepository.findByUserId(userMappingId);
+    }
 
     public UserMapping createUserMapping(UserMapping userMapping) {
         return userMappingRepository.save(userMapping);

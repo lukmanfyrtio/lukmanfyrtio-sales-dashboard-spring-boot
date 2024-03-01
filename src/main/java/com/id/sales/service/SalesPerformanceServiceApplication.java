@@ -103,7 +103,7 @@ public class SalesPerformanceServiceApplication {
 			
 			Product product=new Product();
 			
-			product.setName("APICENTRUM - API MANAGEMENT");
+			product.setName("API MANAGEMENT");
 			
 			product.setDepartment(department);
 			
@@ -115,7 +115,7 @@ public class SalesPerformanceServiceApplication {
 			
 			Product product3=new Product();
 			
-			product3.setName("Bonefire");
+			product3.setName("POINT OF SALE");
 			
 			product3.setDepartment(department3);
 			

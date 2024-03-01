@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.id.sales.service.model.UserMapping;
@@ -36,6 +37,12 @@ public class UserMappingController {
 	@GetMapping("/{id}")
 	public ResponseEntity<UserMapping> getUserMappingById(@PathVariable UUID id) {
 		Optional<UserMapping> userMapping = userMappingService.getUserMappingById(id);
+		return userMapping.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping("/userId")
+	public ResponseEntity<UserMapping> getUserMappingByUserId(@RequestParam String id) {
+		Optional<UserMapping> userMapping = userMappingService.getUserMappingByUsersId(id);
 		return userMapping.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 

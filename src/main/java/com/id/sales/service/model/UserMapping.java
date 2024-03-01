@@ -26,9 +26,8 @@ public class UserMapping extends BaseModel {
 	private UUID id;
 
 	@ManyToOne
-	@JoinColumn(name = "department_id")
-	@NotNull(message = "Department ID is required")
-	private Department department;
+	@JoinColumn(name = "company_id")
+	private Company company;
 	
 	// Reference to user through user_id
 	@Column(name = "user_id")

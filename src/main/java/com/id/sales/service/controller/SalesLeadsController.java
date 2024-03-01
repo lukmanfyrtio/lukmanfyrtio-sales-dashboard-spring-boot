@@ -2,12 +2,17 @@ package com.id.sales.service.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -122,4 +127,25 @@ public class SalesLeadsController {
 			return model;
 		}
 	}
+    
+    @GetMapping("/sample")
+    public ResponseEntity<Resource> downloadExcelFile() throws IOException {
+        // Load the file from the classpath
+        Resource resource = new ClassPathResource("files/sales_leads_sample_data.xlsx");
+
+        // Copy the file to a temporary location (optional)
+        Path tempFile = Files.createTempFile("temp-sales-leads-data", ".xlsx");
+        Files.copy(resource.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
+
+        // Set the Content-Disposition header to prompt the user for download
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=sales_leads_sample_data.xlsx");
+
+        // Specify the Content-Type as Excel
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
+    }
 }

@@ -5,6 +5,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.id.sales.service.dto.ResponseModel;
 import com.id.sales.service.model.Department;
 import com.id.sales.service.service.DepartmentService;
 
@@ -33,6 +40,14 @@ public class DepartmentController {
 		return departmentService.getAllDepartments();
 	}
 
+	@GetMapping("/filter")
+	public Page<Department> getAllDepartments(@RequestParam(required = false, name = "search") String search,
+			@RequestParam(required = true, name = "page") Integer page,
+			@RequestParam(required = true, name = "size") Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return departmentService.filter(search, pageable);
+	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Department> getDepartmentById(@PathVariable UUID id) {
 		Optional<Department> department = departmentService.getDepartmentById(id);
@@ -40,27 +55,42 @@ public class DepartmentController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Department> createDepartment(@RequestBody Department department) {
+	public ResponseEntity<?> createDepartment(@RequestBody Department department) {
+		if (department.isDisplay() && departmentService.getTop3DisplayableDepartments().size() >= 3) {
+		    ResponseModel model = new ResponseModel();
+		    model.conflict("Display data is limited to a maximum of 3 departments.");
+		    return ResponseEntity.status(HttpStatus.CONFLICT).body(model);
+		}
+
 		Department createdDepartment = departmentService.createDepartment(department);
 		return ResponseEntity.ok(createdDepartment);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Department> updateDepartment(@PathVariable UUID id,
+	public ResponseEntity<?> updateDepartment(@PathVariable UUID id,
 			@RequestBody Department updatedDepartment) {
+		if (updatedDepartment.isDisplay() && departmentService.getTop3DisplayableDepartments().size() >= 3) {
+		    ResponseModel model = new ResponseModel();
+		    model.conflict("Display data is limited to a maximum of 3 departments.");
+		    return ResponseEntity.status(HttpStatus.CONFLICT).body(model);
+		}
 		Department department = departmentService.updateDepartment(id, updatedDepartment);
 		return (department != null) ? ResponseEntity.ok(department) : ResponseEntity.notFound().build();
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteDepartment(@PathVariable UUID id) {
-		departmentService.deleteDepartment(id);
-		return ResponseEntity.noContent().build();
+		try {
+			departmentService.deleteDepartment(id);
+			return ResponseEntity.noContent().build();
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+		}
 	}
-	
-    @GetMapping("/display/top3")
-    public ResponseEntity<List<Department>> getTop3DisplayableDepartments() {
-        List<Department> departments = departmentService.getTop3DisplayableDepartments();
-        return ResponseEntity.ok(departments);
-    }
+
+	@GetMapping("/display/top3")
+	public ResponseEntity<List<Department>> getTop3DisplayableDepartments() {
+		List<Department> departments = departmentService.getTop3DisplayableDepartments();
+		return ResponseEntity.ok(departments);
+	}
 }

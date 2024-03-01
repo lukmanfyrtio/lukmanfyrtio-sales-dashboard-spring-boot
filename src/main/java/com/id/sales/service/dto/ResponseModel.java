@@ -22,6 +22,13 @@ public class ResponseModel {
 		this.timestamp = String.valueOf(new Date().getTime());
 	}
 	
+	public void conflict(String message) {
+		this.message = message;
+		this.statusCode = HttpStatus.CONFLICT.value();
+		this.success = "false";
+		this.timestamp = String.valueOf(new Date().getTime());
+	}
+	
 	
 	
 
