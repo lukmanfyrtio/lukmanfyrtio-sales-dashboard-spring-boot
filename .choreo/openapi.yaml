@@ -1,15 +1,350 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: Sales Performance Dashboard REST API
+  description: "The Sales Performance Dashboard REST API provides a comprehensive\
+    \ set of endpoints to retrieve and manage data related to sales leads, revenue,\
+    \ and other key performance indicators (KPIs). This API is designed to support\
+    \ the development of a Sales Performance Dashboard that enables users to monitor\
+    \ and analyze sales activities effectively."
+  version: v1.0
 servers:
 - url: http://localhost:8888
   description: Generated server url
 paths:
-  /sales-target/edit:
-    post:
+  /api/usermappings/{id}:
+    get:
       tags:
-      - sales-info-controller
+      - user-mapping-controller
+      operationId: getUserMappingById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMapping'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - user-mapping-controller
+      operationId: updateUserMapping
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserMapping'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMapping'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - user-mapping-controller
+      operationId: deleteUserMapping
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+      security:
+      - bearerAuth: []
+  /api/salesleads/{id}:
+    get:
+      tags:
+      - sales-leads-controller
+      operationId: getSalesLeadsById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesLeads'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - sales-leads-controller
+      operationId: updateSalesLeads
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesLeads'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesLeads'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - sales-leads-controller
+      operationId: deleteSalesLeads
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+      security:
+      - bearerAuth: []
+  /api/sales-revenue/{id}:
+    get:
+      tags:
+      - sales-revenue-controller
+      operationId: getSalesRevenueById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesRevenue'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - sales-revenue-controller
+      operationId: updateSalesRevenue
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesRevenue'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesRevenue'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - sales-revenue-controller
+      operationId: deleteSalesRevenue
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+      security:
+      - bearerAuth: []
+  /api/products/{id}:
+    get:
+      tags:
+      - product-controller
+      operationId: getProductById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - product-controller
+      operationId: updateProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - product-controller
+      operationId: deleteProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+      security:
+      - bearerAuth: []
+  /api/departments/{id}:
+    get:
+      tags:
+      - department-controller
+      operationId: getDepartmentById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Department'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - department-controller
+      operationId: updateDepartment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - department-controller
+      operationId: deleteDepartment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+      security:
+      - bearerAuth: []
+  /api/company-targets:
+    get:
+      tags:
+      - company-target-controller
+      operationId: getAllCompanyTargets
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyTarget'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - company-target-controller
       operationId: editData
       requestBody:
         content:
@@ -24,11 +359,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /sales-target/add:
+      security:
+      - bearerAuth: []
     post:
       tags:
-      - sales-info-controller
-      operationId: addData
+      - company-target-controller
+      operationId: createCompanyTarget
       requestBody:
         content:
           application/json:
@@ -42,22 +378,45 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /invoice/edit/{id}:
-    post:
+      security:
+      - bearerAuth: []
+  /api/companies/{id}:
+    get:
       tags:
-      - invoice-controller
-      operationId: editData_1
+      - company-controller
+      operationId: getCompanyById
       parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Company'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - company-controller
+      operationId: updateCompany
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InvoiceAging'
+              $ref: '#/components/schemas/Company'
         required: true
       responses:
         "200":
@@ -65,17 +424,50 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /invoice/add:
+                $ref: '#/components/schemas/Company'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - company-controller
+      operationId: deleteCompany
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+      security:
+      - bearerAuth: []
+  /api/usermappings:
+    get:
+      tags:
+      - user-mapping-controller
+      operationId: getAllUserMappings
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserMapping'
+      security:
+      - bearerAuth: []
     post:
       tags:
-      - invoice-controller
-      operationId: addData_1
+      - user-mapping-controller
+      operationId: createUserMapping
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InvoiceAging'
+              $ref: '#/components/schemas/UserMapping'
         required: true
       responses:
         "200":
@@ -83,11 +475,48 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/upload/excel2:
+                $ref: '#/components/schemas/UserMapping'
+      security:
+      - bearerAuth: []
+  /api/salesleads:
+    get:
+      tags:
+      - sales-leads-controller
+      operationId: getAllSalesLeads
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesLeads'
+      security:
+      - bearerAuth: []
     post:
       tags:
-      - dashboard-controller
+      - sales-leads-controller
+      operationId: createSalesLeads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesLeads'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - bearerAuth: []
+  /api/salesleads/import:
+    post:
+      tags:
+      - sales-leads-controller
       operationId: uploadExcel2
       requestBody:
         content:
@@ -107,123 +536,190 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /dashboard/edit/{id}:
+      security:
+      - bearerAuth: []
+  /api/sales-revenue:
+    get:
+      tags:
+      - sales-revenue-controller
+      operationId: getAllSalesRevenue
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesRevenue'
+      security:
+      - bearerAuth: []
     post:
       tags:
-      - dashboard-controller
-      operationId: editData_2
+      - sales-revenue-controller
+      operationId: createSalesRevenue
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesRevenue'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesRevenue'
+      security:
+      - bearerAuth: []
+  /api/products:
+    get:
+      tags:
+      - product-controller
+      operationId: getProducts
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - product-controller
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+      - bearerAuth: []
+  /api/departments:
+    get:
+      tags:
+      - department-controller
+      operationId: getAllDepartments
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Department'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - department-controller
+      operationId: createDepartment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - bearerAuth: []
+  /api/companies:
+    get:
+      tags:
+      - company-controller
+      operationId: getAllCompanies
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - company-controller
+      operationId: createCompany
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Company'
+      security:
+      - bearerAuth: []
+  /api/usermappings/userId:
+    get:
+      tags:
+      - user-mapping-controller
+      operationId: getUserMappingByUserId
       parameters:
       - name: id
-        in: path
+        in: query
         required: true
         schema:
           type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CustomerInfo'
-        required: true
       responses:
         "200":
           description: OK
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/add:
-    post:
-      tags:
-      - dashboard-controller
-      operationId: addData_2
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CustomerInfo'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /sales-target/list:
+                $ref: '#/components/schemas/UserMapping'
+      security:
+      - bearerAuth: []
+  /api/salesleads/sample:
     get:
       tags:
-      - sales-info-controller
-      operationId: getList
-      parameters:
-      - name: bulan
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: tahun
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: bup
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: search
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: page
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: size
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+      - sales-leads-controller
+      operationId: downloadExcelFile
       responses:
         "200":
           description: OK
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /sales-target/detail/{tahun}:
+                type: string
+                format: binary
+      security:
+      - bearerAuth: []
+  /api/salesleads/filter:
     get:
       tags:
-      - sales-info-controller
-      operationId: detailData
+      - sales-leads-controller
+      operationId: filterSalesLeads
       parameters:
-      - name: tahun
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: bup
-        in: query
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /invoice/list:
-    get:
-      tags:
-      - invoice-controller
-      operationId: getList_1
-      parameters:
-      - name: tenant
+      - name: stage
         in: query
         required: false
         schema:
@@ -233,16 +729,12 @@ paths:
         required: false
         schema:
           type: string
-      - name: denda
+      - name: departmentId
         in: query
         required: false
         schema:
           type: string
-      - name: bup
-        in: query
-        required: false
-        schema:
-          type: string
+          format: uuid
       - name: search
         in: query
         required: false
@@ -266,12 +758,14 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /invoice/download:
+                $ref: '#/components/schemas/PageSalesLeads'
+      security:
+      - bearerAuth: []
+  /api/salesleads/export:
     get:
       tags:
-      - invoice-controller
-      operationId: getFile
+      - sales-leads-controller
+      operationId: exportSalesLeadsToExcel
       responses:
         "200":
           description: OK
@@ -280,22 +774,181 @@ paths:
               schema:
                 type: string
                 format: binary
-  /dashboard/target-breakdown:
+      security:
+      - bearerAuth: []
+  /api/sales-revenue/filter:
+    get:
+      tags:
+      - sales-revenue-controller
+      operationId: filterSalesLeads_1
+      parameters:
+      - name: departmentId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageSalesRevenue'
+      security:
+      - bearerAuth: []
+  /api/sales-revenue/export:
+    get:
+      tags:
+      - sales-revenue-controller
+      operationId: exportSalesLeadsToExcel_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+      security:
+      - bearerAuth: []
+  /api/products/filter:
+    get:
+      tags:
+      - product-controller
+      operationId: getProducts_1
+      parameters:
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageProduct'
+      security:
+      - bearerAuth: []
+  /api/products/department/{id}:
+    get:
+      tags:
+      - product-controller
+      operationId: getProductByDepartment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+      security:
+      - bearerAuth: []
+  /api/departments/filter:
+    get:
+      tags:
+      - department-controller
+      operationId: getAllDepartments_1
+      parameters:
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageDepartment'
+      security:
+      - bearerAuth: []
+  /api/departments/display/top3:
+    get:
+      tags:
+      - department-controller
+      operationId: getTop3DisplayableDepartments
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Department'
+      security:
+      - bearerAuth: []
+  /api/dashboard/target-breakdown:
     get:
       tags:
       - dashboard-controller
       operationId: getTargetAndBreakDown
       parameters:
-      - name: tahun
+      - name: year
         in: query
         required: true
         schema:
           type: string
-      - name: bup
+      - name: departementUUID
         in: query
         required: false
         schema:
           type: string
+          format: uuid
       responses:
         "200":
           description: OK
@@ -303,7 +956,9 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /dashboard/target-breakdown-all:
+      security:
+      - bearerAuth: []
+  /api/dashboard/target-breakdown-all:
     get:
       tags:
       - dashboard-controller
@@ -321,7 +976,9 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /dashboard/target-actual:
+      security:
+      - bearerAuth: []
+  /api/dashboard/target-actual:
     get:
       tags:
       - dashboard-controller
@@ -332,9 +989,100 @@ paths:
         required: true
         schema:
           type: string
-      - name: bup
+      - name: departementUUID
         in: query
         required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+      security:
+      - bearerAuth: []
+  /api/dashboard/list-sales:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: listSales
+      parameters:
+      - name: departementUUID
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+      security:
+      - bearerAuth: []
+  /api/dashboard/existing-gap:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getExistingGAP
+      parameters:
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: departementUUID
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+      security:
+      - bearerAuth: []
+  /api/dashboard/detail:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: funnelData
+      parameters:
+      - name: departementUUID
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: tahun
+        in: query
+        required: true
         schema:
           type: string
       responses:
@@ -344,27 +1092,83 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /dashboard/list:
+      security:
+      - bearerAuth: []
+  /api/dashboard/avg-sales:
     get:
       tags:
       - dashboard-controller
-      operationId: getList_2
+      operationId: avgSalesCycle
       parameters:
-      - name: stage
+      - name: departementUUID
         in: query
         required: false
         schema:
           type: string
-      - name: status
+          format: uuid
+      - name: tahun
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+      security:
+      - bearerAuth: []
+  /api/company-targets/{id}:
+    get:
+      tags:
+      - company-target-controller
+      operationId: getCompanyTargetById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CompanyTarget'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - company-target-controller
+      operationId: deleteCompanyTarget
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+      security:
+      - bearerAuth: []
+  /api/company-targets/filter:
+    get:
+      tags:
+      - company-target-controller
+      operationId: filterSalesLeads_2
+      parameters:
+      - name: departmentId
         in: query
         required: false
         schema:
           type: string
-      - name: bup
-        in: query
-        required: false
-        schema:
-          type: string
+          format: uuid
       - name: search
         in: query
         required: false
@@ -388,58 +1192,26 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/list-sales:
+                $ref: '#/components/schemas/PageCompanyTarget'
+      security:
+      - bearerAuth: []
+  /api/company-targets/detail/{tahun}:
     get:
       tags:
-      - dashboard-controller
-      operationId: listSales
-      parameters:
-      - name: bup
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: tahun
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: page
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: size
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/existing-gap:
-    get:
-      tags:
-      - dashboard-controller
-      operationId: getExistingGAP
+      - company-target-controller
+      operationId: detailData
       parameters:
       - name: tahun
-        in: query
+        in: path
         required: true
         schema:
           type: string
-      - name: bup
+      - name: departmentId
         in: query
         required: false
         schema:
           type: string
+          format: uuid
       responses:
         "200":
           description: OK
@@ -447,93 +1219,26 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /dashboard/download:
-    get:
-      tags:
-      - dashboard-controller
-      operationId: getFile_1
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: string
-                format: binary
-  /dashboard/detail:
-    get:
-      tags:
-      - dashboard-controller
-      operationId: funnelData
-      parameters:
-      - name: bup
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: tahun
-        in: query
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/avg-sales:
-    get:
-      tags:
-      - dashboard-controller
-      operationId: avgSalesCycle
-      parameters:
-      - name: bup
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: tahun
-        in: query
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /sales-target/deleteall:
+      security:
+      - bearerAuth: []
+  /api/company-targets/{departmentId}/{year}:
     delete:
       tags:
-      - sales-info-controller
-      operationId: deleteDataall
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /sales-target/delete/{tahun}:
-    delete:
-      tags:
-      - sales-info-controller
+      - company-target-controller
       operationId: deleteData
       parameters:
-      - name: tahun
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: departmentId
         in: path
         required: true
         schema:
           type: string
-      - name: bup
-        in: query
-        required: true
-        schema:
-          type: string
+          format: uuid
       responses:
         "200":
           description: OK
@@ -541,110 +1246,222 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseModel'
-  /invoice/detail/{id}:
-    delete:
-      tags:
-      - invoice-controller
-      operationId: detailData_1
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /invoice/deleteall:
-    delete:
-      tags:
-      - invoice-controller
-      operationId: deleteDataall_1
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /invoice/delete/{id}:
-    delete:
-      tags:
-      - invoice-controller
-      operationId: deleteData_1
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/detail/{id}:
-    delete:
-      tags:
-      - dashboard-controller
-      operationId: detailData_2
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/deleteall:
-    delete:
-      tags:
-      - dashboard-controller
-      operationId: deleteDataall_2
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
-  /dashboard/delete/{id}:
-    delete:
-      tags:
-      - dashboard-controller
-      operationId: deleteData_2
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ResponseModel'
+      security:
+      - bearerAuth: []
 components:
   schemas:
+    Company:
+      required:
+      - id
+      type: object
+      properties:
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    UserMapping:
+      type: object
+      properties:
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        company:
+          $ref: '#/components/schemas/Company'
+        userId:
+          type: string
+        email:
+          type: string
+    Department:
+      type: object
+      properties:
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+        display:
+          type: boolean
+    Product:
+      type: object
+      properties:
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        department:
+          $ref: '#/components/schemas/Department'
+    SalesLeads:
+      required:
+      - address
+      - currentStage
+      - email
+      - leadsStatus
+      - month
+      - phoneNumber
+      - postalCode
+      - potentialCustomer
+      - product
+      - projectedValue
+      - salesName
+      type: object
+      properties:
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        month:
+          type: string
+        salesName:
+          type: string
+        potentialCustomer:
+          type: string
+        address:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        product:
+          $ref: '#/components/schemas/Product'
+        projectedValue:
+          type: string
+        leadsCategory:
+          type: string
+        opportunitiesOpen:
+          type: string
+          format: date-time
+        opportunitiesClose:
+          type: string
+          format: date-time
+        proposalOpen:
+          type: string
+          format: date-time
+        proposalClose:
+          type: string
+          format: date-time
+        negotiationOpen:
+          type: string
+          format: date-time
+        negotiationClose:
+          type: string
+          format: date-time
+        dealsOpen:
+          type: string
+          format: date-time
+        dealsClose:
+          type: string
+          format: date-time
+        droppedOpen:
+          type: string
+          format: date-time
+        droppedClose:
+          type: string
+          format: date-time
+        currentStage:
+          type: string
+        leadsStatus:
+          type: string
+        notes:
+          type: string
+        countDays:
+          type: integer
+          format: int64
+    SalesRevenue:
+      type: object
+      properties:
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        invoiceNumber:
+          type: string
+        invoiceDate:
+          type: string
+        dueDate:
+          type: string
+          format: date-time
+        principalReceipt:
+          type: string
+        principalReceiptEntryDate:
+          type: string
+          format: date-time
+        notes:
+          type: string
+        department:
+          $ref: '#/components/schemas/Department'
+        salesLeads:
+          $ref: '#/components/schemas/SalesLeads'
     AddRequestTarget:
       type: object
       properties:
-        bup:
+        departmentId:
           type: string
-        tahun:
+          format: uuid
+        year:
           type: string
         existing:
           type: array
@@ -657,7 +1474,7 @@ components:
     MonthClass:
       type: object
       properties:
-        bulan:
+        month:
           type: string
         value:
           type: number
@@ -676,114 +1493,221 @@ components:
           type: string
         data:
           type: object
-    InvoiceAging:
+    PageSalesLeads:
       type: object
       properties:
-        id:
+        totalPages:
           type: integer
           format: int32
-        bup:
-          type: string
-        tenant:
-          type: string
-        nomerInvoice:
-          type: string
-        tglInvoice:
-          type: string
-        tglInvoiceDiterimaTenant:
-          type: string
-        tglJatuhTempo:
-          type: string
-        pokokPenerimaan:
-          type: string
-        tglMasukRekeningPokok:
-          type: string
-        keterangan:
-          type: string
-        jatuhTempo:
-          type: string
-        agingInvoiceSejakDiterima:
-          type: string
-        denda:
-          type: string
-        keteranganAgingInvoice:
-          type: string
-        agingPembayaran:
-          type: string
-    CustomerInfo:
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesLeads'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageableObject:
       type: object
       properties:
-        createdTime:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    PageSalesRevenue:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesRevenue'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageProduct:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageDepartment:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Department'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    CompanyTarget:
+      type: object
+      properties:
+        updatedBy:
+          type: string
+        updatedAt:
           type: string
           format: date-time
         createdBy:
           type: string
-        updatedTime:
+        createdAt:
           type: string
           format: date-time
-        updatedBy:
+        id:
           type: string
-        idPelanggan:
+          format: uuid
+        month:
+          type: string
+        year:
+          type: string
+        existing:
+          type: number
+        target:
+          type: number
+        department:
+          $ref: '#/components/schemas/Department'
+    PageCompanyTarget:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
           type: integer
           format: int64
-        bulan:
-          type: string
-        bup:
-          type: string
-        salesName:
-          type: string
-        calonPelanggan:
-          type: string
-        alamat:
-          type: string
-        kelurahan:
-          type: string
-        kecamatan:
-          type: string
-        kabupaten:
-          type: string
-        provinsi:
-          type: string
-        kodePos:
-          type: string
-        nomerTelepon:
-          type: string
-        email:
-          type: string
-        project:
-          type: string
-        produk:
-          type: string
-        proyeksiNilai:
-          type: string
-        leadsCategory:
-          type: string
-        opportunitiesOpen:
-          type: string
-        opportunitiesClose:
-          type: string
-        proposalOpen:
-          type: string
-        proposalClose:
-          type: string
-        negotiationOpen:
-          type: string
-        negotiationClose:
-          type: string
-        dealsOpen:
-          type: string
-        dealsClose:
-          type: string
-        droppedOpen:
-          type: string
-        droppedClose:
-          type: string
-        currentStage:
-          type: string
-        leadsStatus:
-          type: string
-        keterangan:
-          type: string
-        countDays:
+        size:
           type: integer
-          format: int64
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyTarget'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
